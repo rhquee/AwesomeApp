@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+        android:title="zaakceptowano regulamin"
+        android:checked="true"
+        android:defaultValue="true"
+        android:key="terms_accepted" />
+
+    <SwitchPreference
+        android:title="czy A?"
+        android:summary="A = B, haha"
+        android:defaultValue="true"/>
+</PreferenceScreen>
