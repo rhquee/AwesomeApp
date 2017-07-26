@@ -1,0 +1,17 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp"
+    android:background="@color/colorPrimaryDark"
+    tools:context="pl.kfrak.awesomeapp.fragments.OpenFileFragment">
+
+    <TextView
+        android:id="@+id/openFileFragment_outputText"
+        android:textColor="@android:color/white"
+        android:fontFamily="monospace"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/hello_blank_fragment" />
+
+</ScrollView>

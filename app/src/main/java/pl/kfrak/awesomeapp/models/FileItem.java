@@ -25,7 +25,7 @@ public class FileItem {
     public FileItem(String parentFilePath) {
         path = parentFilePath;
         isDirectory = true;
-        name = ".....";
+        name = "...";
     }
 
     public String getName() {

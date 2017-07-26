@@ -78,9 +78,9 @@ public class ExplorerFragment extends Fragment implements FileListAdapter.OnFile
     private void loadFileList() {
         List<FileItem> fileItems = new ArrayList<>();
         File file = new File(currentFilePath);
-        if(file.isDirectory()){
+        if (file.isDirectory()) {
             File[] files = file.listFiles();
-            for(File currentFile : files){
+            for (File currentFile : files) {
                 FileItem fileItem = new FileItem(currentFile);
                 fileItems.add(fileItem);
             }
@@ -119,22 +119,33 @@ public class ExplorerFragment extends Fragment implements FileListAdapter.OnFile
     @Override
     public void onFileItemClicked(FileItem fileItem) {
         String path = fileItem.getPath();
-        if(path!=null && !path.equals((File.separator))){
+        if (path != null && !path.equals((File.separator))) {
 
-        if (USE_ACTIVITY_TO_NAVIGATE)
-            mListener.onPathClicked(fileItem.getPath());
-        else {
+            if (USE_ACTIVITY_TO_NAVIGATE) {
+                if (fileItem.isDirectory()) {
+                    if (fileItem.getName().equals("..."))
+                    mListener.onBackClicked();
+                    mListener.onDirectoryClicked(fileItem.getPath());
+                } else
+                    mListener.onFileClicked(fileItem.getPath());
+            } else {
 
-            updateFilePath();
-            currentFilePath = fileItem.getPath();
-            loadFileList();
+                currentFilePath = fileItem.getPath();
+                updateFilePath();
+                loadFileList();
+            }
         }
-    }}
+    }
 
     private void updateFilePath() {
     }
 
     public interface ExploratorInteractionListener {
-        void onPathClicked(String newFilePath);
+        void onDirectoryClicked(String newPath);
+
+        //nasze main activity musi nadpisac te dwie ponizsze, nowe funckje
+        void onFileClicked(String filePath);
+
+        void onBackClicked();
     }
 }
