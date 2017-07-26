@@ -26,6 +26,7 @@ import pl.kfrak.awesomeapp.R;
 public class ExplorerFragment extends Fragment implements FileListAdapter.OnFileItemClicked {
 
     private static final String ARG_PATH_PARAM = "param1";
+    private static final boolean USE_ACTIVITY_TO_NAVIGATE = true;
 
     @BindView(R.id.explorerFragment_filePathText)
     TextView filePathText;
@@ -88,8 +89,9 @@ public class ExplorerFragment extends Fragment implements FileListAdapter.OnFile
         }
         Log.d("Pliki", "Ile plikow" + fileItems.size());
 
-        fileItems.add(new FileItem(file.getParent()));
+        fileItems.add(0, new FileItem(file.getParent()));
 
+        //adapter tworzy na podstawie FileItem nasz folderek (ewentualnie plik)
         filesAdapter = new FileListAdapter(getActivity().getApplicationContext(), fileItems, this);
         recyclerView.setAdapter(filesAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -110,15 +112,24 @@ public class ExplorerFragment extends Fragment implements FileListAdapter.OnFile
     public void onDetach() {
         super.onDetach();
         mListener = null;
+        //tez null bo moze trzymac referencje do naszego activity/kontekstu itd
         filesAdapter = null;
     }
 
     @Override
     public void onFileItemClicked(FileItem fileItem) {
-        updateFilePath();
-        currentFilePath = fileItem.getPath();
-        loadFileList();
-    }
+        String path = fileItem.getPath();
+        if(path!=null && !path.equals((File.separator))){
+
+        if (USE_ACTIVITY_TO_NAVIGATE)
+            mListener.onPathClicked(fileItem.getPath());
+        else {
+
+            updateFilePath();
+            currentFilePath = fileItem.getPath();
+            loadFileList();
+        }
+    }}
 
     private void updateFilePath() {
     }

@@ -8,16 +8,24 @@ import java.io.File;
 
 public class FileItem {
 
-    private String name;
-    private long lastModified;
-    private long fileSizeInBytes;
-    private boolean directory;
-    private String path;
+    String name;
+    long lastModified;
+    long fileSizeInBytes;
+    boolean isDirectory;
+    String path;
+
+    public FileItem(File currentFile) {
+        name = currentFile.getName();
+        lastModified = currentFile.lastModified();
+        fileSizeInBytes = currentFile.length();
+        isDirectory = currentFile.isDirectory();
+        path = currentFile.getPath();
+    }
 
     public FileItem(String parentFilePath) {
         path = parentFilePath;
-        directory = true;
-        name = "..";
+        isDirectory = true;
+        name = ".....";
     }
 
     public String getName() {
@@ -33,19 +41,10 @@ public class FileItem {
     }
 
     public boolean isDirectory() {
-        return directory;
+        return isDirectory;
     }
 
     public String getPath() {
         return path;
-    }
-
-    public FileItem(File currentFile) {
-        name = currentFile.getName();
-        lastModified = currentFile.lastModified();
-        fileSizeInBytes = currentFile.length();
-        directory = currentFile.isDirectory();
-        path = currentFile.getPath();
-
     }
 }

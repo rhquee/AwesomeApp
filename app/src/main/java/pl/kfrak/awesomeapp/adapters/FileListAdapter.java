@@ -44,9 +44,12 @@ public class FileListAdapter extends RecyclerView.Adapter<FileViewHolders> {
             } else {
                 //holder.fileSizeText.setText((int) fileItem.getFileSizeInBytes());
                 holder.icon.setImageResource(R.drawable.ic_crop);
+            }
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        //obiekt interfejsu, zapisany jako prywatna i dodany w konstruktorze. Jak korzystam z ExplorerFragment, mam kontekst poyniej liste a poyniej
+                        //to co bedyie mnie nasuchiwao(kontext, liste plików + this)
                         onFileItemClicked.onFileItemClicked(fileItem);
                     }
                 });
@@ -54,13 +57,13 @@ public class FileListAdapter extends RecyclerView.Adapter<FileViewHolders> {
         }
 
 
-    }
 
     @Override
     public int getItemCount() {
         return fileItems.size();
     }
 
+    //interfejs jesli bedzie ... to musi nadpisac metode tą koło void
     public interface OnFileItemClicked {
         void onFileItemClicked(FileItem fileItem);
     }
